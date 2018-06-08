@@ -65,24 +65,22 @@
                 <label class="control-label col-md-4 col-sm-12 col-xs-4">Fec. Inicio<span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <div class='input-group date' id='myDatepicker2'>
-                      <input type='text' class="form-control" />
-                      <span class="input-group-addon">
-                         <span class="glyphicon glyphicon-calendar"></span>
-                      </span>
-                  </div>
+                  <!-- <div class="col-md-11 xdisplay_inputx form-group has-feedback"> -->
+                    <input type="text" class="form-control has-feedback-left" id="single_cal4" placeholder="" aria-describedby="inputSuccess2Status4">
+                    <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                    <span id="inputSuccess2Status4" class="sr-only">(success)</span>
+                  <!-- </div> -->
                 </div>
               </div>
               <div class="form-group">
                 <label class="control-label col-md-4 col-sm-12 col-xs-4">Fec. Final<span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <div class='input-group date' id='myDatepicker2'>
-                      <input type='text' class="form-control" />
-                      <span class="input-group-addon">
-                         <span class="glyphicon glyphicon-calendar"></span>
-                      </span>
-                  </div>
+                  <!-- <div class="col-md-11 xdisplay_inputx form-group has-feedback"> -->
+                    <input type="text" class="form-control has-feedback-left" id="single_cal3" placeholder="" aria-describedby="Add">
+                    <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                    <span id="Add" class="sr-only">(success)</span>
+                  <!-- </div> -->
                 </div>
               </div>
               <div class="form-group">

@@ -1,4 +1,7 @@
-<?php include "head.php";?>
+<?php
+  include "head.php";
+  require_once "archivosPHP/connection.php";
+?>
 <!-- Inicio - Contenido de la Página -->
 <div class="right_col" role="main">
 	<div class="row">
@@ -26,7 +29,7 @@
               <div class="form-group">
                 <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-5">
                   <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Guardar</button>
-				  <button class="btn btn-primary" type="reset"><i class="fa fa-close"></i> Limpiar</button>
+				          <button class="btn btn-primary" type="reset"><i class="fa fa-close"></i> Limpiar</button>
                 </div>
               </div>
             </form>
@@ -51,14 +54,20 @@
 		        </thead>
 
 		        <tbody>
+              <?php
+                $con = new BD_Gestion();
+                $res = $con->get_query("SELECT * FROM responsable");
+                while($row = mysqli_fetch_array($res)){
+              ?>
 		          <tr class="odd pointer">
-		            <td class="a-right a-right">1</td>
-		            <td class="a-right a-right">Israel Espinoza</td>
+		            <td class="a-right a-right"> <?= "$row[0]" ;?></td>
+		            <td class="a-right a-right"> <?= "$row[1]" ;?> </td>
 		            <td class="a-right a-right">
 		            	<button type="button" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Modificar</button>
 		            	<button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> Eliminar</button>
 		            </td>
 		          </tr>
+              <?php }; ?>
 		        </tbody>
 			</table>
 	    </div>
