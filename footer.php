@@ -44,6 +44,7 @@
     <script src="resources/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
     <!-- jQuery Knob -->
     <script src="resources/vendors/jquery-knob/dist/jquery.knob.min.js"></script>
+    <script src="resources/js/sweetalert.min.js"></script>
     <script type="text/javascript">
         $('#myDatepicker2').datetimepicker({
             format: 'DD.MM.YYYY'

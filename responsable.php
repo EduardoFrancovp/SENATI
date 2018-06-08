@@ -17,22 +17,24 @@
           </div>
           <div class="x_content">
             <br />
-            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+            <!-- <form data-parsley-validate class=""> -->
+              <div class="form-horizontal form-label-left">
               <div class="form-group">
                 <label class="control-label col-md-4 col-sm-12 col-xs-4">Nombre Responsable<span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input id="birthday" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
+                  <input id="responsable" name="responsable" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
                 </div>
               </div>
               <div class="ln_solid"></div>
               <div class="form-group">
                 <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-5">
-                  <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Guardar</button>
+                  <button class="btn btn-success" onclick="insertData()" ><i class="fa fa-check"></i> Guardar</button>
 				          <button class="btn btn-primary" type="reset"><i class="fa fa-close"></i> Limpiar</button>
                 </div>
               </div>
-            </form>
+            </div>
+            <!-- </form> -->
           </div>
         </div>
       </div>
@@ -53,23 +55,73 @@
 		          </tr>
 		        </thead>
 
-		        <tbody>
-              <?php
-                $con = new BD_Gestion();
-                $res = $con->get_query("SELECT * FROM responsable");
-                while($row = mysqli_fetch_array($res)){
-              ?>
-		          <tr class="odd pointer">
-		            <td class="a-right a-right"> <?= "$row[0]" ;?></td>
-		            <td class="a-right a-right"> <?= "$row[1]" ;?> </td>
-		            <td class="a-right a-right">
-		            	<button type="button" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Modificar</button>
-		            	<button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> Eliminar</button>
-		            </td>
-		          </tr>
-              <?php }; ?>
+		        <tbody id="load-data">
 		        </tbody>
 			</table>
+
+      <script type="text/javascript">
+        loadData();
+
+        $(document).on("click", ".selectData", function(){
+          var id = $(this).attr("id");
+          swal({
+            text: "Deseas eliminar este Responsable?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              swal("Responsable eliminado exitosamente", {
+                icon: "success",
+              });
+            }
+          });
+        });
+
+        function insertData(){
+          var responsable = $("[name='responsable']").val();
+          $.ajax({
+            type: "POST",
+            data: "responsable=" + responsable,
+            url: "controller/saveResponsable.php",
+            success: function(result){
+              var result = JSON.parse(result);
+              if(result.type == "S"){
+                swal("Exito", result.message, "success");
+                $("#responsable").val("");
+              }else{
+                swal("Error", result.message, "error");
+              }
+              loadData();
+            }
+          })
+        }
+
+        function loadData(){
+          var data = $("#load-data");
+          data.html("");
+          $.ajax({
+            type: "GET",
+            data: "",
+            url: "controller/getData.php",
+            success: function(result){
+              var result = JSON.parse(result);
+              $.each(result, function(key,val){
+                var newRow = $("<tr class='odd pointer'>");
+                newRow.html(
+                  "<td class='a-right a-right'>" + val.id_responsable + "</td>" +
+                  "<td class='a-right a-right'>" + val.nom_responsable + "</td>" +
+                  "<td class='a-right a-right'>"+ 
+                    "<button type='button' class='btn btn-primary btn-sm'><i class='fa fa-edit'></i> Modificar</button>"+
+                    "<button id='" + val.id_responsable +"' type='button' class='btn btn-danger btn-sm selectData'><i class='fa fa-trash-o'></i> Eliminar</button>"+
+                  "</td>");
+                data.append(newRow);
+              });
+            }
+          })
+        }
+      </script>
 	    </div>
 	</div>
 </div>

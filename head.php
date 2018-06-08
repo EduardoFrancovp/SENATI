@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>SENATI | ETI</title>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link href="resources/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="resources/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="resources/vendors/nprogress/nprogress.css" rel="stylesheet">
