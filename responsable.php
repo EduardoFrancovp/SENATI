@@ -20,7 +20,7 @@
             <!-- <form data-parsley-validate class=""> -->
               <div class="form-horizontal form-label-left">
               <div class="form-group">
-                <label class="control-label col-md-4 col-sm-12 col-xs-4">Nombre Responsable<span class="required">*</span>
+                <label class="control-label col-md-4 col-sm-12 col-xs-4">Nombre Responsablee<span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <input id="responsable" name="responsable" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
