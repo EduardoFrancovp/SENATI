@@ -1,5 +1,5 @@
 <?php
-	require_once "../archivosPHP/connection.php";
+	require_once "../../archivosPHP/connection.php";
 
 	$con = new BD_Gestion();
 	$query = "SELECT * FROM responsable WHERE estado = 1";

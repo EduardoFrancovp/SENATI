@@ -1,5 +1,5 @@
 <?php
-	require_once "../archivosPHP/connection.php";
+	require_once "../../archivosPHP/connection.php";
 
 	if($_POST["responsable"] != ""){
 		$con = new BD_Gestion();
