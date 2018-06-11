@@ -46,7 +46,7 @@
             <thead>
               <tr class="headings">
                 <th class="column-title">ID</th>
-                <th class="column-title">prioridad </th>
+                <th class="column-title">Prioridad </th>
                 <th class="column-title no-link last" colspan="2" ><span class="nobr">Acciones</span>
                 </th>
                 <th class="bulk-actions" colspan="2">
