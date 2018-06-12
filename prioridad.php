@@ -8,7 +8,7 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           <div class="x_title">
-            <h2>Módulo Prioridad</h2>
+            <h2>Módulo prioridad</h2>
             <ul class="nav navbar-right panel_toolbox">
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
@@ -62,47 +62,123 @@
       <script type="text/javascript">
         loadData();
 
+        //Función para eliminar prioridad
         $(document).on("click", ".selectData", function(){
           var id = $(this).attr("id");
           swal({
-            text: "Deseas eliminar este prioridad?",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
+            title: 'Deseas eliminar este Prioridad?',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si, Eliminar!',
+            cancelButtonText: 'Cancelar!',
+            reverseButtons: true
           })
-          .then((willDelete) => {
-            if (willDelete) {
-              swal("prioridad eliminado exitosamente", {
-                icon: "success",
+          .then((result) => {
+            if (result.value) {
+              $.ajax({
+                type: "POST",
+                data: "prioridad=" + id,
+                url: "controller/prioridad/eliminarPrioridad.php",
+                success: function(result){
+                  var result = JSON.parse(result);
+                  if(result.type == "S"){
+                    swal({
+                      type: 'success',
+                      title: result.message,
+                      showConfirmButton: false,
+                      timer: 1000
+                    })
+                  }else{
+                    swal({
+                      type: 'error',
+                      title: result.message,
+                      showConfirmButton: false,
+                      timer: 1000
+                    })
+                  }
+                  loadData();
+                }
               });
             }
-          });
+          })
         });
 
+        //Función para editar prioridad
+        $(document).on("click", ".editData", function(){
+          var id = $(this).attr("id");
+          var resp = $(this).attr("name");
+          swal({
+            title: 'Nombre Prioridad',
+            input: 'text',
+            inputValue:resp,
+            showCancelButton: true,
+            confirmButtonText: 'Guardar',
+            showLoaderOnConfirm: true
+          }).then((result) => {
+            if (result.value) {
+              var prioridad = result.value;
+              $.ajax({
+                type: "POST",
+                data: "prioridad=" + prioridad + "&id=" + id,
+                url: "controller/prioridad/editarPrioridad.php",
+                success: function(result){
+                  var result = JSON.parse(result);
+                  if(result.type == "S"){
+                    swal({
+                      type: 'success',
+                      title: result.message,
+                      showConfirmButton: false,
+                      timer: 1000
+                    })
+                  }else{
+                    swal({
+                      type: 'success',
+                      title: result.message,
+                      showConfirmButton: false,
+                      timer: 1000
+                    })
+                  }
+                  loadData();
+                }
+              });
+            }
+          })
+        });
+
+        //Función para registrar prioridad
         function insertData(){
           var prioridad = $("[name='prioridad']").val();
           $.ajax({
             type: "POST",
             data: "prioridad=" + prioridad,
-            url: "controller/prioridad/savePrioridad.php",
-
+            url: "controller/prioridad/SavePrioridad.php",
             success: function(result){
               var result = JSON.parse(result);
               if(result.type == "S"){
-                swal("Exito", result.message, "success");
+                swal({
+                  type: 'success',
+                  title: result.message,
+                  showConfirmButton: false,
+                  timer: 1000
+                })
                 $("#prioridad").val("");
               }else{
-                swal("Error", result.message, "error");
+                swal({
+                  type: 'error',
+                  title: result.message,
+                  showConfirmButton: false,
+                  timer: 1000
+                })
               }
               loadData();
             }
           })
         }
 
+        //Función para listar prioridad
         function loadData(){
           var data = $("#load-data");
           data.html("");
-          
           $.ajax({
             type: "GET",
             data: "",
@@ -115,7 +191,7 @@
                   "<td class='a-right a-right'>" + val.id_prioridad + "</td>" +
                   "<td class='a-right a-right'>" + val.nom_prioridad + "</td>" +
                   "<td class='a-right a-right'>"+ 
-                    "<button type='button' class='btn btn-primary btn-sm'><i class='fa fa-edit'></i> Modificar</button>"+
+                    "<button name='" + val.nom_prioridad +"' id='" + val.id_prioridad +"' type='button' class='btn btn-primary btn-sm editData'><i class='fa fa-edit'></i> Modificar</button>"+
                     "<button id='" + val.id_prioridad +"' type='button' class='btn btn-danger btn-sm selectData'><i class='fa fa-trash-o'></i> Eliminar</button>"+
                   "</td>");
                 data.append(newRow);
